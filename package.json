@@ -10,8 +10,12 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
+    "@sanity/client": "^7.14.1",
+    "@sanity/image-url": "^2.0.3",
+    "@sanity/vision": "^5.7.0",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.17.1",
+    "sanity": "^5.7.0",
     "tailwindcss": "^4.1.18"
   }
 }
