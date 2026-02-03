@@ -50,15 +50,15 @@ const portfolioData = {
 };
 
 export function getStaticPaths() {
-  return [
-    { params: { slug: 'joanna-darek' } },
-    { params: { slug: 'natalia-michal' } },
-    { params: { slug: 'amelia-damian' } },
-  ];
+  return Object.entries(portfolioData).map(([slug, data]) => ({
+    params: { slug },
+    props: { portfolioItem: data }
+  }));
 }
 
 const { slug } = Astro.params;
-const portfolio = portfolioData[slug as keyof typeof portfolioData];
+const { portfolioItem } = Astro.props;
+const portfolio = portfolioItem || portfolioData[slug as keyof typeof portfolioData];
 
 if (!portfolio) {
   return Astro.redirect('/portfolio');
