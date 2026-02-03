@@ -8,14 +8,26 @@ const slides = [
   {
     image: slide1,
     alt: "Parze młoda w objęciach",
+    title: "Miłość w każdym kadrze",
+    subtitle: "Uwieczniamy emocje, które zostaną z Wami na zawsze.",
+    buttonText: "Zobacz Portfolio",
+    buttonLink: "/portfolio"
   },
   {
     image: slide2,
     alt: "Panna młoda z bukietem",
+    title: "Naturalne Piękno",
+    subtitle: "Subtelne, eleganckie i pełne wdzięku portrety.",
+    buttonText: "O Nas",
+    buttonLink: "/o-nas"
   },
   {
     image: slide3,
     alt: "Ceremonia ślubna",
+    title: "Wasza Historia",
+    subtitle: "Reportaż, który opowiada o Waszym najważniejszym dniu.",
+    buttonText: "Zapytaj o termin",
+    buttonLink: "/kontakt"
   },
 ];
 ---
@@ -26,46 +38,43 @@ const slides = [
     {
       slides.map((slide, index) => (
         <div
-          class={`absolute inset-0 w-full h-full transition-opacity duration-[1500ms] ease-in-out ${index === 0 ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+          class={`absolute inset-0 w-full h-full transition-opacity duration-[1500ms] ease-in-out ${index === 0 ? "opacity-100 z-10 active-slide" : "opacity-0 z-0"}`}
           data-slide={index}
         >
+          <!-- Image -->
           <Image
             src={slide.image}
             alt={slide.alt}
-            class="w-full h-full object-cover animate-ken-burns"
+            class="absolute inset-0 w-full h-full object-cover animate-ken-burns"
             loading={index === 0 ? "eager" : "lazy"}
             width={1920}
             quality={80}
             format="webp"
           />
-          <div class="hero-overlay" />
+          <div class="hero-overlay absolute inset-0 bg-black/30" />
+          
+          <!-- Content Overlay (Per Slide) -->
+          <div class="relative z-20 h-full flex items-center justify-center text-center text-white px-6">
+            <div class="hero-content">
+              <h1 class="font-serif font-light tracking-[0.2em] mb-6">
+                {slide.title}
+              </h1>
+              <p class="font-sans text-sm md:text-base tracking-[0.15em] mb-10 max-w-md mx-auto">
+                {slide.subtitle}
+              </p>
+              <div>
+                <a
+                  href={slide.buttonLink}
+                  class="btn-primary border-white text-white hover:bg-white hover:text-charcoal inline-block"
+                >
+                  {slide.buttonText}
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       ))
     }
-  </div>
-
-  <!-- Hero Content -->
-  <div
-    class="relative z-20 h-full flex items-center justify-center text-center text-white px-6"
-  >
-    <div>
-      <h1
-        class="font-serif font-light tracking-[0.2em] mb-6 opacity-0 animate-fade-in-up"
-      >
-        Tworzymy dla Was
-      </h1>
-      <p
-        class="font-sans text-sm md:text-base tracking-[0.15em] mb-10 opacity-0 animate-fade-in-up delay-200 max-w-md mx-auto"
-      >
-        Fotografię dopasowaną do Waszej historii.
-      </p>
-      <a
-        href="/portfolio"
-        class="opacity-0 animate-fade-in-up delay-300 btn-primary border-white text-white hover:bg-white hover:text-charcoal inline-block"
-      >
-        Poznaj nas
-      </a>
-    </div>
   </div>
 
   <!-- Scroll indicator -->
@@ -86,9 +95,9 @@ const slides = [
     >
     <span class="w-8 h-px bg-white/30"></span>
     <a
-      href="https://instagram.com/fiodorowphotography"
+      href="https://instagram.com/fiodorow_photography"
       target="_blank"
-      class="hover:text-white transition-colors">IN</a
+      class="hover:text-white transition-colors">IG</a
     >
   </div>
 </section>
@@ -103,30 +112,81 @@ const slides = [
     }
   }
 
+<style>
+  @keyframes ken-burns {
+    0% {
+      transform: scale(1) translate(0, 0);
+    }
+    100% {
+      transform: scale(1.1) translate(-2%, 0);
+    }
+  }
+
   .animate-ken-burns {
     animation: ken-burns 20s ease-out infinite alternate;
   }
-
-  .animate-fade-in-up {
-    animation: fadeInUp 1s ease-out forwards;
+  
+  /* Cinematic Reveal Animation */
+  @keyframes cinematic-reveal {
+    0% {
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+      filter: blur(12px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
   }
 
-  .delay-200 {
-    animation-delay: 0.2s;
-  }
-  .delay-300 {
-    animation-delay: 0.3s;
+  /* Subtitle specific (softer blur) */
+  @keyframes cinematic-slide {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+      filter: blur(8px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
   }
 
-  @keyframes fadeInUp {
-    from {
+  /* Button specific (sharp slide) */
+  @keyframes fade-slide-up {
+    0% {
       opacity: 0;
       transform: translateY(20px);
     }
-    to {
+    100% {
       opacity: 1;
       transform: translateY(0);
     }
+  }
+  
+  /* Initial hidden state */
+  .hero-content h1,
+  .hero-content p,
+  .hero-content div {
+    opacity: 0;
+  }
+
+  /* Animation classes applied when parent has .active-slide */
+  .active-slide .hero-content h1 {
+    animation: cinematic-reveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 0.3s;
+  }
+  
+  .active-slide .hero-content p {
+    animation: cinematic-slide 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 0.6s;
+  }
+  
+  .active-slide .hero-content div {
+    animation: fade-slide-up 1s ease-out forwards;
+    animation-delay: 0.9s;
   }
 </style>
 
@@ -139,15 +199,19 @@ const slides = [
 
   const nextSlide = () => {
     // Current slide fades out
-    slides[currentSlide].classList.remove("opacity-100", "z-10");
+    slides[currentSlide].classList.remove("opacity-100", "z-10", "active-slide");
     slides[currentSlide].classList.add("opacity-0", "z-0");
+    
+    // Reset animations in the outgoing slide explicitly if needed, 
+    // but removing 'active-slide' class handles the CSS transition reset.
 
     // Next slide index
     currentSlide = (currentSlide + 1) % slideCount;
 
     // Next slide fades in
     slides[currentSlide].classList.remove("opacity-0", "z-0");
-    slides[currentSlide].classList.add("opacity-100", "z-10");
+    void (slides[currentSlide] as HTMLElement).offsetWidth; // Trigger reflow to restart css transitions if faulty
+    slides[currentSlide].classList.add("opacity-100", "z-10", "active-slide");
   };
 
   // Start loop
