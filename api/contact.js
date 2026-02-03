@@ -1,29 +1,45 @@
 export default async function handler(req, res) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method not allowed' });
+  // Handle CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  try {
+    const { name, email, phone, date, service, message } = req.body;
+
+    // Validate required fields
+    if (!name || !email || !message) {
+      return res.status(400).json({ error: 'Wymagane pola: imię, email i wiadomość' });
     }
 
-    try {
-        const { name, email, phone, date, service, message } = req.body;
+    // Check for API key
+    if (!process.env.RESEND_API_KEY) {
+      console.error('RESEND_API_KEY is not set');
+      return res.status(500).json({ error: 'Błąd konfiguracji serwera' });
+    }
 
-        // Validate required fields
-        if (!name || !email || !message) {
-            return res.status(400).json({ error: 'Wymagane pola: imię, email i wiadomość' });
-        }
-
-        // Send email via Resend
-        const resendResponse = await fetch('https://api.resend.com/emails', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
-            },
-            body: JSON.stringify({
-                from: 'Fiodorow Photography <kontakt@fiodorowphotography.pl>',
-                to: ['fiodorowphotography@gmail.com'],
-                reply_to: email,
-                subject: `Nowe zapytanie od ${name} - Fiodorow Photography`,
-                html: `
+    // Send email via Resend
+    // Using resend.dev domain for testing (no domain verification needed)
+    const resendResponse = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
+      },
+      body: JSON.stringify({
+        from: 'Fiodorow Photography <onboarding@resend.dev>',
+        to: ['fiodorowphotography@gmail.com'],
+        reply_to: email,
+        subject: `Nowe zapytanie od ${name} - Fiodorow Photography`,
+        html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <h1 style="color: #2d2d2d; border-bottom: 2px solid #8b9a7a; padding-bottom: 10px;">
               Nowe zapytanie ze strony
@@ -72,19 +88,23 @@ export default async function handler(req, res) {
             </p>
           </div>
         `
-            })
-        });
+      })
+    });
 
-        if (!resendResponse.ok) {
-            const errorData = await resendResponse.json();
-            console.error('Resend API error:', errorData);
-            throw new Error('Failed to send email');
-        }
+    const responseData = await resendResponse.json();
 
-        return res.status(200).json({ success: true, message: 'Wiadomość została wysłana' });
-
-    } catch (error) {
-        console.error('Contact form error:', error);
-        return res.status(500).json({ error: 'Wystąpił błąd podczas wysyłania wiadomości' });
+    if (!resendResponse.ok) {
+      console.error('Resend API error:', responseData);
+      return res.status(500).json({
+        error: 'Błąd wysyłania wiadomości',
+        details: responseData.message || 'Unknown error'
+      });
     }
+
+    return res.status(200).json({ success: true, message: 'Wiadomość została wysłana' });
+
+  } catch (error) {
+    console.error('Contact form error:', error);
+    return res.status(500).json({ error: 'Wystąpił błąd podczas wysyłania wiadomości' });
+  }
 }
