@@ -50,13 +50,15 @@ const cities = {
 };
 
 export function getStaticPaths() {
-  return Object.keys(cities).map(city => ({
-    params: { miasto: city }
+  return Object.entries(cities).map(([slug, cityData]) => ({
+    params: { miasto: slug },
+    props: { cityData }
   }));
 }
 
 const { miasto } = Astro.params;
-const city = cities[miasto as keyof typeof cities];
+const { cityData } = Astro.props;
+const city = cityData || cities[miasto as keyof typeof cities];
 
 if (!city) {
   return Astro.redirect('/');
