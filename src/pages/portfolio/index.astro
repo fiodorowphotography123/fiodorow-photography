@@ -2,52 +2,70 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import { getPortfolioItems, urlFor, categoryLabels } from '../../lib/sanity';
 
-// Placeholder portfolio items - will be replaced with Sanity data
-const portfolioItems = [
+// Fetch from Sanity
+let sanityItems = [];
+try {
+  sanityItems = await getPortfolioItems();
+} catch (e) {
+  console.log('Sanity fetch failed, using fallback data');
+}
+
+// Fallback static data (used when Sanity is empty)
+const fallbackItems = [
   {
     image: "https://images.unsplash.com/photo-1594463750939-ebb28c3f7f75?w=800&q=80",
-    category: "Reportaż ślubny",
+    category: "reportaz-slubny",
     title: "Joanna & Darek",
-    slug: "joanna-darek",
-    date: "8 czerwca 2024"
+    slug: { current: "joanna-darek" },
+    date: "2024-06-08"
   },
   {
     image: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&q=80",
-    category: "Sesja narzeczeńska",
+    category: "sesja-narzeczenska",
     title: "Natalia & Michał",
-    slug: "natalia-michal",
-    date: "15 maja 2024"
+    slug: { current: "natalia-michal" },
+    date: "2024-05-15"
   },
   {
     image: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&q=80",
-    category: "Reportaż ślubny",
+    category: "reportaz-slubny",
     title: "Amelia & Damian",
-    slug: "amelia-damian",
-    date: "22 lipca 2024"
+    slug: { current: "amelia-damian" },
+    date: "2024-07-22"
   },
   {
     image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
-    category: "Reportaż ślubny",
+    category: "reportaz-slubny",
     title: "Karolina & Piotr",
-    slug: "karolina-piotr",
-    date: "10 sierpnia 2024"
+    slug: { current: "karolina-piotr" },
+    date: "2024-08-10"
   },
   {
     image: "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800&q=80",
-    category: "Sesja portretowa",
+    category: "sesja-portretowa",
     title: "Anna",
-    slug: "anna-portret",
-    date: "5 kwietnia 2024"
+    slug: { current: "anna-portret" },
+    date: "2024-04-05"
   },
   {
     image: "https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=800&q=80",
-    category: "Sesja rodzinna",
+    category: "sesja-rodzinna",
     title: "Rodzina Nowaków",
-    slug: "rodzina-nowakow",
-    date: "18 marca 2024"
+    slug: { current: "rodzina-nowakow" },
+    date: "2024-03-18"
   }
 ];
+
+// Use Sanity data if available, otherwise fallback
+const portfolioItems = sanityItems.length > 0 ? sanityItems.map(item => ({
+  image: item.coverImage ? urlFor(item.coverImage).width(800).url() : fallbackItems[0].image,
+  category: item.category,
+  title: item.title,
+  slug: item.slug,
+  date: item.date
+})) : fallbackItems;
 
 const categories = ["Wszystkie", "Reportaż ślubny", "Sesja narzeczeńska", "Sesja portretowa", "Sesja rodzinna"];
 ---
@@ -89,9 +107,9 @@ const categories = ["Wszystkie", "Reportaż ślubny", "Sesja narzeczeńska", "Se
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
         {portfolioItems.map((item) => (
           <a 
-            href={`/portfolio/${item.slug}`} 
+            href={`/portfolio/${item.slug.current}`} 
             class="portfolio-card group"
-            data-category={item.category}
+            data-category={categoryLabels[item.category] || item.category}
           >
             <div class="overflow-hidden">
               <img 
@@ -103,7 +121,7 @@ const categories = ["Wszystkie", "Reportaż ślubny", "Sesja narzeczeńska", "Se
             </div>
             <div class="mt-4">
               <span class="text-[0.65rem] tracking-[0.2em] uppercase text-charcoal-light">
-                {item.category}
+                {categoryLabels[item.category] || item.category}
               </span>
               <h3 class="font-serif text-lg tracking-[0.1em] uppercase text-charcoal mt-1">
                 {item.title}
