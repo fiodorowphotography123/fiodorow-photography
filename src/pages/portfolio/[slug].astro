@@ -1,0 +1,232 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+// Placeholder data - will come from Sanity
+const portfolioData = {
+  "joanna-darek": {
+    title: "Joanna & Darek",
+    date: "8 czerwca 2024",
+    description: "To był słoneczny, czerwcowy dzień pełen radości i dobrej energii. Asia i Darek powiedzieli sobie TAK wśród najbliższych i serdecznych znajomych. Po ceremonii przyjechaliśmy na sesję plenerową do Siedlec, tworząc niepowtarzalne kadry.",
+    category: "Reportaż ślubny",
+    location: "Siedlce",
+    images: [
+      "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80",
+      "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800&q=80",
+      "https://images.unsplash.com/photo-1594463750939-ebb28c3f7f75?w=800&q=80",
+      "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800&q=80",
+      "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1200&q=80",
+      "https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=800&q=80",
+    ]
+  },
+  "natalia-michal": {
+    title: "Natalia & Michał",
+    date: "15 maja 2024",
+    description: "Romantyczna sesja narzeczeńska w historycznych zaułkach Białegostoku. Natalia i Michał są parą pełną energii i miłości, co widać na każdym zdjęciu.",
+    category: "Sesja narzeczeńska",
+    location: "Białystok",
+    images: [
+      "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1200&q=80",
+      "https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
+      "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800&q=80",
+    ]
+  },
+  "amelia-damian": {
+    title: "Amelia & Damian",
+    date: "22 lipca 2024",
+    description: "Piękny letni ślub w sercu Warszawy. Amelia i Damian stworzyli niesamowitą atmosferę pełną radości i wzruszeń.",
+    category: "Reportaż ślubny",
+    location: "Warszawa",
+    images: [
+      "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1200&q=80",
+      "https://images.unsplash.com/photo-1594463750939-ebb28c3f7f75?w=800&q=80",
+      "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800&q=80",
+      "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
+      "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&q=80",
+    ]
+  }
+};
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: 'joanna-darek' } },
+    { params: { slug: 'natalia-michal' } },
+    { params: { slug: 'amelia-damian' } },
+  ];
+}
+
+const { slug } = Astro.params;
+const portfolio = portfolioData[slug as keyof typeof portfolioData];
+
+if (!portfolio) {
+  return Astro.redirect('/portfolio');
+}
+---
+
+<BaseLayout 
+  title={`${portfolio.title} | Fiodorow Photography`}
+  description={portfolio.description}
+>
+  <Header currentPath="/portfolio" />
+  
+  <!-- Portfolio Detail -->
+  <section class="pt-32 pb-20 md:pt-40 md:pb-32 bg-white">
+    <div class="max-w-5xl mx-auto px-6 md:px-12">
+      
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <span class="text-[0.65rem] tracking-[0.2em] uppercase text-charcoal-light">
+          {portfolio.category}
+        </span>
+        <h1 class="section-title mt-2 mb-4">{portfolio.title}</h1>
+        <p class="font-serif text-charcoal-light italic">{portfolio.date}</p>
+      </div>
+      
+      <!-- Description -->
+      <p class="text-center text-charcoal-light text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-16">
+        {portfolio.description}
+      </p>
+      
+      <!-- Masonry Gallery -->
+      <div class="masonry-grid">
+        {portfolio.images.map((image, index) => (
+          <div 
+            class:list={[
+              "overflow-hidden cursor-pointer gallery-item",
+              index === 0 || index === 4 ? "col-span-2" : ""
+            ]}
+            data-index={index}
+          >
+            <img 
+              src={image}
+              alt={`${portfolio.title} - zdjęcie ${index + 1}`}
+              class:list={[
+                "w-full object-cover transition-transform duration-700 hover:scale-105",
+                index === 0 || index === 4 ? "h-[400px] md:h-[500px]" : "h-[250px] md:h-[350px]"
+              ]}
+              loading={index < 2 ? "eager" : "lazy"}
+            />
+          </div>
+        ))}
+      </div>
+      
+      <!-- Location badge -->
+      <div class="mt-12 text-center">
+        <span class="inline-flex items-center gap-2 text-sm text-charcoal-light">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          {portfolio.location}
+        </span>
+      </div>
+      
+      <!-- Navigation -->
+      <div class="mt-16 pt-8 border-t border-charcoal/10 flex justify-between items-center">
+        <a href="/portfolio" class="btn-primary">
+          ← Powrót do Portfolio
+        </a>
+        <a href="/kontakt" class="btn-primary">
+          Zarezerwuj termin
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 bg-black/95 z-50 hidden items-center justify-center">
+    <button 
+      id="lightbox-close"
+      class="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
+      aria-label="Zamknij"
+    >
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    
+    <button 
+      id="lightbox-prev"
+      class="absolute left-6 text-white/70 hover:text-white transition-colors"
+      aria-label="Poprzednie"
+    >
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    
+    <button 
+      id="lightbox-next"
+      class="absolute right-6 text-white/70 hover:text-white transition-colors"
+      aria-label="Następne"
+    >
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+    
+    <img id="lightbox-img" src="" alt="" class="max-w-[90vw] max-h-[90vh] object-contain" />
+  </div>
+  
+  <Footer />
+</BaseLayout>
+
+<script define:vars={{ images: portfolio.images }}>
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = document.getElementById('lightbox-close');
+  const prevBtn = document.getElementById('lightbox-prev');
+  const nextBtn = document.getElementById('lightbox-next');
+  
+  let currentIndex = 0;
+  
+  function openLightbox(index) {
+    currentIndex = index;
+    lightboxImg.src = images[index];
+    lightbox.classList.remove('hidden');
+    lightbox.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeLightbox() {
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+  
+  function showPrev() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    lightboxImg.src = images[currentIndex];
+  }
+  
+  function showNext() {
+    currentIndex = (currentIndex + 1) % images.length;
+    lightboxImg.src = images[currentIndex];
+  }
+  
+  galleryItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const index = parseInt(item.getAttribute('data-index') || '0');
+      openLightbox(index);
+    });
+  });
+  
+  closeBtn?.addEventListener('click', closeLightbox);
+  prevBtn?.addEventListener('click', showPrev);
+  nextBtn?.addEventListener('click', showNext);
+  
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox?.classList.contains('hidden')) {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    }
+  });
+</script>

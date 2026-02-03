@@ -1,0 +1,118 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = "/" } = Astro.props;
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/o-nas", label: "O nas" },
+  { href: "/kontakt", label: "Kontakt" },
+];
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="header">
+  <nav class="flex items-center justify-between px-6 md:px-12 py-6">
+    <!-- Logo -->
+    <a href="/" class="flex flex-col items-start group">
+      <span class="font-serif text-xl md:text-2xl tracking-[0.3em] text-charcoal uppercase">
+        Fiodorow
+      </span>
+      <span class="font-sans text-[0.6rem] tracking-[0.2em] text-charcoal-light uppercase -mt-1">
+        photography
+      </span>
+    </a>
+    
+    <!-- Desktop Navigation -->
+    <ul class="hidden md:flex items-center gap-8">
+      {navLinks.map((link) => (
+        <li>
+          <a 
+            href={link.href} 
+            class:list={[
+              "nav-link",
+              { "active": currentPath === link.href || 
+                (link.href !== "/" && currentPath.startsWith(link.href)) }
+            ]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    
+    <!-- Mobile Menu Button -->
+    <button 
+      class="md:hidden flex flex-col gap-1.5 p-2"
+      id="mobile-menu-btn"
+      aria-label="Menu"
+    >
+      <span class="w-6 h-px bg-charcoal transition-all duration-300" id="menu-line-1"></span>
+      <span class="w-6 h-px bg-charcoal transition-all duration-300" id="menu-line-2"></span>
+      <span class="w-4 h-px bg-charcoal transition-all duration-300" id="menu-line-3"></span>
+    </button>
+  </nav>
+  
+  <!-- Mobile Menu -->
+  <div 
+    class="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500"
+    id="mobile-menu"
+  >
+    <ul class="flex flex-col items-center gap-8">
+      {navLinks.map((link) => (
+        <li>
+          <a 
+            href={link.href} 
+            class="font-serif text-2xl tracking-[0.2em] uppercase text-charcoal hover:text-olive transition-colors"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const line1 = document.getElementById('menu-line-1');
+  const line2 = document.getElementById('menu-line-2');
+  const line3 = document.getElementById('menu-line-3');
+  let isOpen = false;
+  
+  menuBtn?.addEventListener('click', () => {
+    isOpen = !isOpen;
+    
+    if (isOpen) {
+      mobileMenu?.classList.remove('opacity-0', 'pointer-events-none');
+      mobileMenu?.classList.add('opacity-100', 'pointer-events-auto');
+      line1?.classList.add('rotate-45', 'translate-y-[7px]');
+      line2?.classList.add('opacity-0');
+      line3?.classList.add('-rotate-45', '-translate-y-[3px]', 'w-6');
+    } else {
+      mobileMenu?.classList.add('opacity-0', 'pointer-events-none');
+      mobileMenu?.classList.remove('opacity-100', 'pointer-events-auto');
+      line1?.classList.remove('rotate-45', 'translate-y-[7px]');
+      line2?.classList.remove('opacity-0');
+      line3?.classList.remove('-rotate-45', '-translate-y-[3px]', 'w-6');
+    }
+  });
+  
+  // Header background on scroll
+  const header = document.getElementById('header');
+  
+  const updateHeader = () => {
+    if (window.scrollY > 100) {
+      header?.classList.add('bg-white/95', 'backdrop-blur-sm', 'shadow-sm');
+    } else {
+      header?.classList.remove('bg-white/95', 'backdrop-blur-sm', 'shadow-sm');
+    }
+  };
+  
+  window.addEventListener('scroll', updateHeader);
+  updateHeader();
+</script>

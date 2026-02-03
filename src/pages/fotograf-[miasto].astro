@@ -1,0 +1,264 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// City data for pSEO pages
+const cities = {
+  "siedlce": {
+    name: "Siedlce",
+    region: "Mazowieckie",
+    postalCode: "08-110",
+    description: "Siedlce to nasze rodzinne miasto i główna baza działalności. Znamy tu każdy zakątek idealny do sesji zdjęciowych.",
+    metaDescription: "Profesjonalny fotograf w Siedlcach (08-110). Fotografia ślubna, portrety, sesje narzeczeńskie. Zadzwoń: +48 600 872 127",
+    highlights: [
+      "Lokalna znajomość najlepszych plenerów",
+      "Szybka dostępność terminów",
+      "Współpraca z lokalnymi miejscami",
+      "Bez dodatkowych kosztów dojazdu"
+    ],
+    nearbyAreas: ["Łuków", "Mińsk Mazowiecki", "Sokołów Podlaski", "Węgrów", "Garwolin"]
+  },
+  "bialystok": {
+    name: "Białystok",
+    region: "Podlaskie", 
+    postalCode: "15-001",
+    description: "Białystok i Podlasie to region, w którym regularnie realizujemy sesje. Piękna przyroda i urokliwe miejsca tworzą idealne tło dla zdjęć.",
+    metaDescription: "Fotograf ślubny Białystok i Podlasie. Profesjonalna fotografia ceremonii, sesje plenerowe. Kontakt: +48 600 872 127",
+    highlights: [
+      "Regularne sesje w regionie podlaskim",
+      "Znajomość malowniczych lokalizacji",
+      "Współpraca z salami weselnymi",
+      "Elastyczne terminy"
+    ],
+    nearbyAreas: ["Supraśl", "Hajnówka", "Augustów", "Suwałki", "Łomża"]
+  },
+  "warszawa": {
+    name: "Warszawa",
+    region: "Mazowieckie",
+    postalCode: "00-001", 
+    description: "Stolica oferuje nieograniczone możliwości dla fotografii. Od eleganckich wnętrz po nowoczesną architekturę - Warszawa to idealne miejsce na każdy rodzaj sesji.",
+    metaDescription: "Fotograf Warszawa - profesjonalna fotografia ślubna i portretowa w stolicy. Rezerwacje: +48 600 872 127",
+    highlights: [
+      "Sesje w prestiżowych lokalizacjach",
+      "Fotografia eventowa i biznesowa",
+      "Dostępność w weekendy",
+      "Współpraca z wedding plannerami"
+    ],
+    nearbyAreas: ["Piaseczno", "Pruszków", "Legionowo", "Otwock", "Konstancin-Jeziorna"]
+  }
+};
+
+export function getStaticPaths() {
+  return Object.keys(cities).map(city => ({
+    params: { miasto: city }
+  }));
+}
+
+const { miasto } = Astro.params;
+const city = cities[miasto as keyof typeof cities];
+
+if (!city) {
+  return Astro.redirect('/');
+}
+
+// Schema.org for Local Business
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Photographer",
+  "name": `Fiodorow Photography - Fotograf ${city.name}`,
+  "image": "https://fiodorowphotography.pl/og-image.jpg",
+  "description": city.metaDescription,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": city.name,
+    "addressRegion": city.region,
+    "postalCode": city.postalCode,
+    "addressCountry": "PL"
+  },
+  "geo": {
+    "@type": "GeoCoordinates"
+  },
+  "url": `https://fiodorowphotography.pl/fotograf-${miasto}`,
+  "telephone": "+48600872127",
+  "priceRange": "$$",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "opens": "09:00",
+    "closes": "20:00"
+  },
+  "areaServed": [city.name, ...city.nearbyAreas]
+};
+---
+
+<BaseLayout 
+  title={`Fotograf ${city.name} | Fiodorow Photography - Fotografia Ślubna`}
+  description={city.metaDescription}
+>
+  <Header />
+  
+  <!-- Hero -->
+  <section class="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0">
+      <img 
+        src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=80"
+        alt={`Fotograf ${city.name}`}
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+      <div class="hero-overlay"></div>
+    </div>
+    
+    <div class="relative z-10 text-center text-white px-6">
+      <span class="text-xs tracking-[0.3em] uppercase opacity-80 mb-4 block">
+        {city.region}
+      </span>
+      <h1 class="font-serif text-4xl md:text-6xl font-light tracking-[0.15em] uppercase">
+        Fotograf {city.name}
+      </h1>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section class="py-20 md:py-32 bg-white">
+    <div class="max-w-6xl mx-auto px-6 md:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        
+        <div>
+          <h2 class="section-title mb-6">
+            Profesjonalny fotograf w {city.name}
+          </h2>
+          <p class="text-charcoal-light text-sm md:text-base leading-relaxed mb-6">
+            {city.description}
+          </p>
+          <p class="text-charcoal-light text-sm md:text-base leading-relaxed mb-8">
+            Specjalizujemy się w fotografii ślubnej, sesjach narzeczeńskich, portretach 
+            i fotografii eventowej. Każda sesja to dla nas nowa historia do opowiedzenia.
+          </p>
+          
+          <!-- Highlights -->
+          <ul class="space-y-3 mb-8">
+            {city.highlights.map(highlight => (
+              <li class="flex items-center gap-3 text-sm text-charcoal-light">
+                <span class="w-2 h-2 bg-olive rounded-full flex-shrink-0"></span>
+                {highlight}
+              </li>
+            ))}
+          </ul>
+          
+          <a href="/kontakt" class="btn-primary">
+            Zapytaj o termin
+          </a>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <img 
+            src="https://images.unsplash.com/photo-1594463750939-ebb28c3f7f75?w=600&q=80"
+            alt={`Sesja ślubna ${city.name}`}
+            class="w-full h-64 object-cover"
+            loading="lazy"
+          />
+          <img 
+            src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&q=80"
+            alt={`Fotografia portretowa ${city.name}`}
+            class="w-full h-64 object-cover mt-8"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Services Section -->
+  <section class="py-20 md:py-32 section-cream">
+    <div class="max-w-6xl mx-auto px-6 md:px-12">
+      <h2 class="section-title text-center mb-16">
+        Usługi fotograficzne – {city.name}
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-8 text-center">
+          <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center border border-charcoal/20">
+            <svg class="w-8 h-8 text-olive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-lg tracking-[0.15em] uppercase mb-4">Fotografia ślubna</h3>
+          <p class="text-charcoal-light text-sm leading-relaxed">
+            Kompletny reportaż z przygotowań, ceremonii i wesela. Uchwytujemy każdą emocję i detal.
+          </p>
+        </div>
+        
+        <div class="bg-white p-8 text-center">
+          <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center border border-charcoal/20">
+            <svg class="w-8 h-8 text-olive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-lg tracking-[0.15em] uppercase mb-4">Sesje narzeczeńskie</h3>
+          <p class="text-charcoal-light text-sm leading-relaxed">
+            Plenerowe sesje przed ślubem. Poznajemy się i tworzymy pierwsze wspólne kadry.
+          </p>
+        </div>
+        
+        <div class="bg-white p-8 text-center">
+          <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center border border-charcoal/20">
+            <svg class="w-8 h-8 text-olive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-lg tracking-[0.15em] uppercase mb-4">Portrety</h3>
+          <p class="text-charcoal-light text-sm leading-relaxed">
+            Profesjonalne sesje portretowe - indywidualne, rodzinne i biznesowe.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Areas Served -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6 md:px-12 text-center">
+      <h2 class="font-serif text-xl tracking-[0.15em] uppercase mb-8">
+        Działamy również w okolicach
+      </h2>
+      <div class="flex flex-wrap justify-center gap-4">
+        {city.nearbyAreas.map(area => (
+          <span class="px-4 py-2 bg-cream-dark text-sm text-charcoal-light">
+            {area}
+          </span>
+        ))}
+        <span class="px-4 py-2 bg-olive text-sm text-white">
+          Cała Polska
+        </span>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA -->
+  <section class="py-20 md:py-24 section-olive">
+    <div class="max-w-3xl mx-auto px-6 text-center text-white">
+      <h2 class="font-serif text-2xl md:text-3xl tracking-[0.15em] uppercase mb-6">
+        Szukasz fotografa w {city.name}?
+      </h2>
+      <p class="text-white/80 text-sm md:text-base leading-relaxed mb-10 max-w-xl mx-auto">
+        Skontaktuj się z nami i opowiedz o swoich planach. Chętnie pomożemy uwiecznić 
+        Wasze najważniejsze chwile.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="tel:+48600872127" class="btn-primary border-white text-white hover:bg-white hover:text-charcoal">
+          +48 600 872 127
+        </a>
+        <a href="/kontakt" class="btn-primary border-white text-white hover:bg-white hover:text-charcoal">
+          Napisz do nas
+        </a>
+      </div>
+    </div>
+  </section>
+  
+  <Footer />
+  
+  <!-- Schema.org -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+</BaseLayout>

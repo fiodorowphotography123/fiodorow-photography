@@ -1,0 +1,174 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// Placeholder images - will be replaced with Sanity
+const aboutImage = "https://images.unsplash.com/photo-1503516459261-40c66117780a?w=800&q=80";
+const studioImage = "https://images.unsplash.com/photo-1554941068-a252680d25d9?w=800&q=80";
+---
+
+<BaseLayout 
+  title="O nas | Fiodorow Photography" 
+  description="Poznaj zespół Fiodorow Photography. Profesjonalna fotografia ślubna i portretowa w Siedlcach, Białymstoku i Warszawie."
+>
+  <Header currentPath="/o-nas" />
+  
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 md:pt-40 md:pb-32 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        
+        <!-- Content -->
+        <div>
+          <h1 class="section-title mb-8">O nas</h1>
+          <div class="space-y-6 text-charcoal-light text-sm md:text-base leading-relaxed">
+            <p>
+              Witajcie! Jesteśmy Fiodorow Photography – zespół fotografów z pasją do uwieczniania 
+              najważniejszych chwil w Waszym życiu. Nasza przygoda z fotografią zaczęła się wiele 
+              lat temu, a z każdą sesją nasza miłość do tego zawodu rośnie.
+            </p>
+            <p>
+              Specjalizujemy się w fotografii ślubnej, portretowej i reportażowej. Wierzymy, że 
+              każde zdjęcie powinno opowiadać historię – Waszą historię. Dlatego podchodzimy do 
+              każdej sesji indywidualnie, starając się uchwycić nie tylko piękno, ale przede 
+              wszystkim autentyczne emocje.
+            </p>
+            <p>
+              Naszą bazą są Siedlce, ale regularnie pracujemy również w Białymstoku i Warszawie. 
+              Chętnie podróżujemy za wyjątkowymi historiami w całej Polsce i poza jej granicami.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Image -->
+        <div class="relative">
+          <img 
+            src={aboutImage}
+            alt="Zespół Fiodorow Photography"
+            class="w-full h-[600px] object-cover"
+            loading="eager"
+          />
+          <div class="absolute -bottom-6 -left-6 w-48 h-48 bg-olive/10 -z-10"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Values Section -->
+  <section class="py-20 md:py-32 section-cream">
+    <div class="max-w-6xl mx-auto px-6 md:px-12">
+      <h2 class="section-title text-center mb-16">Nasze podejście</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <!-- Value 1 -->
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center border border-charcoal/20">
+            <svg class="w-8 h-8 text-olive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-lg tracking-[0.15em] uppercase mb-4">Autentyczność</h3>
+          <p class="text-charcoal-light text-sm leading-relaxed">
+            Nie tworzymy sztucznych pozycji. Łapiemy prawdziwe emocje, naturalne uśmiechy i 
+            spontaniczne momenty, które opowiadają Waszą historię.
+          </p>
+        </div>
+        
+        <!-- Value 2 -->
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center border border-charcoal/20">
+            <svg class="w-8 h-8 text-olive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-lg tracking-[0.15em] uppercase mb-4">Naturalne światło</h3>
+          <p class="text-charcoal-light text-sm leading-relaxed">
+            Preferujemy naturalne światło, które nadaje zdjęciom ciepły, romantyczny charakter. 
+            Każdy kadr jest starannie przemyślany pod kątem kompozycji i oświetlenia.
+          </p>
+        </div>
+        
+        <!-- Value 3 -->
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center border border-charcoal/20">
+            <svg class="w-8 h-8 text-olive" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+          </div>
+          <h3 class="font-serif text-lg tracking-[0.15em] uppercase mb-4">Indywidualne podejście</h3>
+          <p class="text-charcoal-light text-sm leading-relaxed">
+            Każda para jest wyjątkowa, dlatego każda sesja jest inna. Dostosowujemy styl i 
+            podejście do Waszych potrzeb i osobowości.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Working Area Section -->
+  <section class="py-20 md:py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        
+        <!-- Image -->
+        <div class="order-2 lg:order-1">
+          <img 
+            src={studioImage}
+            alt="Obszar działania - Siedlce, Białystok, Warszawa"
+            class="w-full h-[500px] object-cover"
+            loading="lazy"
+          />
+        </div>
+        
+        <!-- Content -->
+        <div class="order-1 lg:order-2">
+          <h2 class="section-title mb-8">Gdzie działamy</h2>
+          <div class="space-y-6 text-charcoal-light text-sm md:text-base leading-relaxed">
+            <p>
+              Nasza główna baza to <strong class="text-charcoal">Siedlce (08-110)</strong>, 
+              ale regularnie pracujemy w całym regionie:
+            </p>
+            <ul class="space-y-3">
+              <li class="flex items-center gap-3">
+                <span class="w-2 h-2 bg-olive rounded-full"></span>
+                <span><strong class="text-charcoal">Siedlce</strong> i okolice</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="w-2 h-2 bg-olive rounded-full"></span>
+                <span><strong class="text-charcoal">Białystok</strong> i Podlasie</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="w-2 h-2 bg-olive rounded-full"></span>
+                <span><strong class="text-charcoal">Warszawa</strong> i województwo mazowieckie</span>
+              </li>
+            </ul>
+            <p>
+              Podróżujemy do wszystkich lokalizacji w całej Polsce. Opowiedzcie nam o swoim 
+              miejscu i z chęcią do Was dojedziemy!
+            </p>
+          </div>
+          <a href="/kontakt" class="btn-primary mt-8 inline-block">
+            Zapytaj o termin
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Equipment Section -->
+  <section class="py-16 md:py-20 section-olive">
+    <div class="max-w-4xl mx-auto px-6 md:px-12 text-center text-white">
+      <h2 class="font-serif text-xl md:text-2xl tracking-[0.2em] uppercase mb-6">
+        Profesjonalny sprzęt
+      </h2>
+      <p class="text-white/80 text-sm leading-relaxed max-w-2xl mx-auto">
+        Pracujemy na profesjonalnym sprzęcie fotograficznym, który pozwala nam uchwycić 
+        każdy detal i emocję. Nasze zdjęcia charakteryzują się doskonałą jakością, 
+        głębią kolorów i naturalnym wyglądem.
+      </p>
+    </div>
+  </section>
+  
+  <Footer />
+</BaseLayout>

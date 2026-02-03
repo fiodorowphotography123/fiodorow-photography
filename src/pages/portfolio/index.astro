@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+// Placeholder portfolio items - will be replaced with Sanity data
+const portfolioItems = [
+  {
+    image: "https://images.unsplash.com/photo-1594463750939-ebb28c3f7f75?w=800&q=80",
+    category: "Reportaż ślubny",
+    title: "Joanna & Darek",
+    slug: "joanna-darek",
+    date: "8 czerwca 2024"
+  },
+  {
+    image: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&q=80",
+    category: "Sesja narzeczeńska",
+    title: "Natalia & Michał",
+    slug: "natalia-michal",
+    date: "15 maja 2024"
+  },
+  {
+    image: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800&q=80",
+    category: "Reportaż ślubny",
+    title: "Amelia & Damian",
+    slug: "amelia-damian",
+    date: "22 lipca 2024"
+  },
+  {
+    image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
+    category: "Reportaż ślubny",
+    title: "Karolina & Piotr",
+    slug: "karolina-piotr",
+    date: "10 sierpnia 2024"
+  },
+  {
+    image: "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800&q=80",
+    category: "Sesja portretowa",
+    title: "Anna",
+    slug: "anna-portret",
+    date: "5 kwietnia 2024"
+  },
+  {
+    image: "https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=800&q=80",
+    category: "Sesja rodzinna",
+    title: "Rodzina Nowaków",
+    slug: "rodzina-nowakow",
+    date: "18 marca 2024"
+  }
+];
+
+const categories = ["Wszystkie", "Reportaż ślubny", "Sesja narzeczeńska", "Sesja portretowa", "Sesja rodzinna"];
+---
+
+<BaseLayout 
+  title="Portfolio | Fiodorow Photography" 
+  description="Portfolio fotograficzne - reportaże ślubne, sesje narzeczeńskie, portrety. Fotograf Siedlce, Białystok, Warszawa."
+>
+  <Header currentPath="/portfolio" />
+  
+  <!-- Portfolio Section -->
+  <section class="pt-32 pb-20 md:pt-40 md:pb-32 bg-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      
+      <!-- Title -->
+      <div class="text-center mb-16">
+        <h1 class="section-title mb-4">Portfolio</h1>
+        <p class="text-charcoal-light text-sm md:text-base max-w-md mx-auto">
+          Odkryj nasze prace. Każda sesja to wyjątkowa historia opowiedziana przez obiektyw.
+        </p>
+      </div>
+      
+      <!-- Category Filter -->
+      <div class="flex flex-wrap justify-center gap-4 mb-16" id="category-filter">
+        {categories.map((cat, index) => (
+          <button 
+            class:list={[
+              "category-btn px-4 py-2 text-xs tracking-[0.15em] uppercase transition-all duration-300 border",
+              index === 0 ? "active bg-charcoal text-white border-charcoal" : "border-charcoal/20 text-charcoal hover:border-charcoal"
+            ]}
+            data-category={cat === "Wszystkie" ? "all" : cat}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+      
+      <!-- Portfolio Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+        {portfolioItems.map((item) => (
+          <a 
+            href={`/portfolio/${item.slug}`} 
+            class="portfolio-card group"
+            data-category={item.category}
+          >
+            <div class="overflow-hidden">
+              <img 
+                src={item.image}
+                alt={item.title}
+                class="w-full h-[450px] object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+            <div class="mt-4">
+              <span class="text-[0.65rem] tracking-[0.2em] uppercase text-charcoal-light">
+                {item.category}
+              </span>
+              <h3 class="font-serif text-lg tracking-[0.1em] uppercase text-charcoal mt-1">
+                {item.title}
+              </h3>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-20 md:py-24 section-cream">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="section-title mb-6">Chcesz zobaczyć więcej?</h2>
+      <p class="text-charcoal-light text-sm md:text-base leading-relaxed mb-10 max-w-xl mx-auto">
+        Każda sesja to dla nas nowe wyzwanie. Skontaktuj się z nami, aby omówić Twój projekt.
+      </p>
+      <a href="/kontakt" class="btn-primary">
+        Skontaktuj się
+      </a>
+    </div>
+  </section>
+  
+  <Footer />
+</BaseLayout>
+
+<script>
+  const filterBtns = document.querySelectorAll('.category-btn');
+  const portfolioItems = document.querySelectorAll('#portfolio-grid > a');
+  
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update active state
+      filterBtns.forEach(b => {
+        b.classList.remove('active', 'bg-charcoal', 'text-white', 'border-charcoal');
+        b.classList.add('border-charcoal/20', 'text-charcoal');
+      });
+      btn.classList.add('active', 'bg-charcoal', 'text-white', 'border-charcoal');
+      btn.classList.remove('border-charcoal/20');
+      
+      const category = btn.getAttribute('data-category');
+      
+      portfolioItems.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        
+        if (category === 'all' || itemCategory === category) {
+          (item as HTMLElement).style.display = 'block';
+          setTimeout(() => {
+            (item as HTMLElement).style.opacity = '1';
+            (item as HTMLElement).style.transform = 'translateY(0)';
+          }, 50);
+        } else {
+          (item as HTMLElement).style.opacity = '0';
+          (item as HTMLElement).style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            (item as HTMLElement).style.display = 'none';
+          }, 300);
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  #portfolio-grid > a {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+</style>

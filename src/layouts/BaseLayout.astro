@@ -1,0 +1,78 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { 
+  title, 
+  description = "Fiodorow Photography - Profesjonalna fotografia ślubna i portretowa. Siedlce, Białystok, Warszawa.",
+  image = "/og-image.jpg"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.url)} />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Preconnect for fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <title>{title}</title>
+    
+    <!-- Schema.org for Photographer -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Fiodorow Photography",
+      "image": image,
+      "description": description,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Siedlce",
+        "addressRegion": "Mazowieckie",
+        "postalCode": "08-110",
+        "addressCountry": "PL"
+      },
+      "priceRange": "$$",
+      "telephone": "+48 600 872 127",
+      "url": "https://fiodorowphotography.pl",
+      "sameAs": [
+        "https://www.instagram.com/fiodorowphotography",
+        "https://www.facebook.com/fiodorowphotography"
+      ]
+    })} />
+  </head>
+  <body class="antialiased">
+    <slot />
+  </body>
+</html>
