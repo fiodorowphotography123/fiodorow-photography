@@ -3,8 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-// Placeholder images - will be replaced with Sanity images
-const heroImage = "https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=80";
+import Hero from '../components/Hero.astro';
 
 const portfolioItems = [
   {
@@ -32,43 +31,7 @@ const portfolioItems = [
   <Header currentPath="/" />
   
   <!-- Hero Section -->
-  <section class="relative h-screen flex items-center justify-center overflow-hidden">
-    <!-- Background Image -->
-    <div class="absolute inset-0">
-      <img 
-        src={heroImage}
-        alt="Fotografia ślubna - para młoda"
-        class="w-full h-full object-cover"
-        loading="eager"
-      />
-      <div class="hero-overlay"></div>
-    </div>
-    
-    <!-- Hero Content -->
-    <div class="relative z-10 text-center text-white px-6">
-      <h1 class="font-serif font-light tracking-[0.2em] mb-6">
-        Tworzymy dla Was
-      </h1>
-      <p class="font-sans text-sm md:text-base tracking-[0.15em] mb-10 opacity-90 max-w-md mx-auto">
-        Fotografię dopasowaną do Waszej historii.
-      </p>
-      <a href="/portfolio" class="btn-primary border-white text-white hover:bg-white hover:text-charcoal">
-        Poznaj nas
-      </a>
-    </div>
-    
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/70">
-      <div class="w-px h-12 bg-white/30"></div>
-    </div>
-    
-    <!-- Social links (left side) -->
-    <div class="hidden md:flex absolute left-8 bottom-8 items-center gap-4 text-white/70 text-xs tracking-wider">
-      <a href="https://facebook.com/fiodorowphotography" target="_blank" class="hover:text-white transition-colors">FB</a>
-      <span class="w-8 h-px bg-white/30"></span>
-      <a href="https://instagram.com/fiodorowphotography" target="_blank" class="hover:text-white transition-colors">IN</a>
-    </div>
-  </section>
+  <Hero />
   
   <!-- Portfolio Section -->
   <section class="section-cream py-20 md:py-32">

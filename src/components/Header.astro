@@ -4,115 +4,204 @@ interface Props {
 }
 
 const { currentPath = "/" } = Astro.props;
+const isHome = currentPath === "/";
 
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/portfolio", label: "Portfolio" },
+  { href: "/reportaze", label: "Reportaże" },
   { href: "/o-nas", label: "O nas" },
   { href: "/kontakt", label: "Kontakt" },
 ];
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="header">
-  <nav class="flex items-center justify-between px-6 md:px-12 py-6">
+<header
+  class={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isHome ? "text-white" : "bg-white/95 backdrop-blur-sm shadow-sm text-charcoal"}`}
+  id="header"
+  data-is-home={isHome}
+>
+  <nav class="relative flex items-center justify-between px-6 md:px-12 py-6">
     <!-- Logo -->
-    <a href="/" class="flex flex-col items-start group">
-      <span class="font-serif text-xl md:text-2xl tracking-[0.3em] text-charcoal uppercase">
-        Fiodorow
-      </span>
-      <span class="font-sans text-[0.6rem] tracking-[0.2em] text-charcoal-light uppercase -mt-1">
-        photography
-      </span>
+    <a href="/" class="z-50 flex flex-col items-start group">
+      <img
+        id="header-logo"
+        src={isHome ? "/logo-white.png" : "/logo-dark.png"}
+        alt="Fiodorow Photography"
+        class="h-10 md:h-14 w-auto object-contain transition-opacity duration-300"
+      />
     </a>
-    
-    <!-- Desktop Navigation -->
-    <ul class="hidden md:flex items-center gap-8">
-      {navLinks.map((link) => (
-        <li>
-          <a 
-            href={link.href} 
-            class:list={[
-              "nav-link",
-              { "active": currentPath === link.href || 
-                (link.href !== "/" && currentPath.startsWith(link.href)) }
-            ]}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
-    </ul>
-    
+
+    <!-- Desktop Navigation (Centered) -->
+    <div class="hidden md:block absolute left-1/2 -translate-x-1/2">
+      <ul class="flex items-center gap-8">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class:list={[
+                  "nav-link text-sm tracking-[0.2em] uppercase hover:opacity-70 transition-opacity",
+                  isHome
+                    ? "text-white hover:text-white/80"
+                    : "text-charcoal hover:text-olive",
+                  {
+                    "font-semibold":
+                      currentPath === link.href ||
+                      (link.href !== "/" && currentPath.startsWith(link.href)),
+                  },
+                ]}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
     <!-- Mobile Menu Button -->
-    <button 
-      class="md:hidden flex flex-col gap-1.5 p-2"
-      id="mobile-menu-btn"
-      aria-label="Menu"
-    >
-      <span class="w-6 h-px bg-charcoal transition-all duration-300" id="menu-line-1"></span>
-      <span class="w-6 h-px bg-charcoal transition-all duration-300" id="menu-line-2"></span>
-      <span class="w-4 h-px bg-charcoal transition-all duration-300" id="menu-line-3"></span>
-    </button>
+    <div class="md:hidden ml-auto z-50">
+      <button
+        class="flex flex-col gap-1.5 p-2"
+        id="mobile-menu-btn"
+        aria-label="Menu"
+      >
+        <span
+          class={`w-6 h-px transition-all duration-300 ${isHome ? "bg-white" : "bg-charcoal"}`}
+          id="menu-line-1"></span>
+        <span
+          class={`w-6 h-px transition-all duration-300 ${isHome ? "bg-white" : "bg-charcoal"}`}
+          id="menu-line-2"></span>
+        <span
+          class={`w-4 h-px transition-all duration-300 ${isHome ? "bg-white" : "bg-charcoal"}`}
+          id="menu-line-3"></span>
+      </button>
+    </div>
   </nav>
-  
+
   <!-- Mobile Menu -->
-  <div 
+  <div
     class="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500"
     id="mobile-menu"
   >
     <ul class="flex flex-col items-center gap-8">
-      {navLinks.map((link) => (
-        <li>
-          <a 
-            href={link.href} 
-            class="font-serif text-2xl tracking-[0.2em] uppercase text-charcoal hover:text-olive transition-colors"
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
+      {
+        navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="font-serif text-2xl tracking-[0.2em] uppercase text-charcoal hover:text-olive transition-colors"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </div>
 </header>
 
 <script>
   // Mobile menu toggle
-  const menuBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const line1 = document.getElementById('menu-line-1');
-  const line2 = document.getElementById('menu-line-2');
-  const line3 = document.getElementById('menu-line-3');
+  const menuBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const line1 = document.getElementById("menu-line-1");
+  const line2 = document.getElementById("menu-line-2");
+  const line3 = document.getElementById("menu-line-3");
   let isOpen = false;
-  
-  menuBtn?.addEventListener('click', () => {
+
+  menuBtn?.addEventListener("click", () => {
     isOpen = !isOpen;
-    
+
     if (isOpen) {
-      mobileMenu?.classList.remove('opacity-0', 'pointer-events-none');
-      mobileMenu?.classList.add('opacity-100', 'pointer-events-auto');
-      line1?.classList.add('rotate-45', 'translate-y-[7px]');
-      line2?.classList.add('opacity-0');
-      line3?.classList.add('-rotate-45', '-translate-y-[3px]', 'w-6');
+      mobileMenu?.classList.remove("opacity-0", "pointer-events-none");
+      mobileMenu?.classList.add("opacity-100", "pointer-events-auto");
+      document.body.style.overflow = "hidden"; // Lock scroll
+
+      // Lines to dark when menu is open (because menu bg is white)
+      [line1, line2, line3].forEach((line) => {
+        line?.classList.remove("bg-white");
+        line?.classList.add("bg-charcoal");
+      });
+
+      line1?.classList.add("rotate-45", "translate-y-[7px]");
+      line2?.classList.add("opacity-0");
+      line3?.classList.add("-rotate-45", "-translate-y-[3px]", "w-6");
     } else {
-      mobileMenu?.classList.add('opacity-0', 'pointer-events-none');
-      mobileMenu?.classList.remove('opacity-100', 'pointer-events-auto');
-      line1?.classList.remove('rotate-45', 'translate-y-[7px]');
-      line2?.classList.remove('opacity-0');
-      line3?.classList.remove('-rotate-45', '-translate-y-[3px]', 'w-6');
+      mobileMenu?.classList.add("opacity-0", "pointer-events-none");
+      mobileMenu?.classList.remove("opacity-100", "pointer-events-auto");
+      document.body.style.overflow = ""; // Unlock scroll
+
+      // Revert lines color based on header state
+      updateHeader();
+
+      line1?.classList.remove("rotate-45", "translate-y-[7px]");
+      line2?.classList.remove("opacity-0");
+      line3?.classList.remove("-rotate-45", "-translate-y-[3px]", "w-6");
     }
   });
-  
+
   // Header background on scroll
-  const header = document.getElementById('header');
-  
+  const header = document.getElementById("header");
+  const logo = document.getElementById("header-logo") as HTMLImageElement;
+  const isHome = header?.dataset.isHome === "true";
+  // Re-query lines to capture them correctly in this scope if needed,
+  // but they are globally available in script from above consts
+
   const updateHeader = () => {
-    if (window.scrollY > 100) {
-      header?.classList.add('bg-white/95', 'backdrop-blur-sm', 'shadow-sm');
+    if (isOpen) return; // Don't change colors if mobile menu is open
+
+    if (window.scrollY > 50 || !isHome) {
+      // Scrolled OR not home -> White BG, Dark Text, Dark Logo
+      header?.classList.add(
+        "bg-white/95",
+        "backdrop-blur-sm",
+        "shadow-sm",
+        "text-charcoal",
+      );
+      header?.classList.remove("text-white");
+
+      if (logo) logo.src = "/logo-dark.png";
+
+      // Update nav links color
+      const links = document.querySelectorAll(".nav-link");
+      links.forEach((link) => {
+        link.classList.remove("text-white", "hover:text-white/80");
+        link.classList.add("text-charcoal", "hover:text-olive");
+      });
+
+      [line1, line2, line3].forEach((line) => {
+        line?.classList.remove("bg-white");
+        line?.classList.add("bg-charcoal");
+      });
     } else {
-      header?.classList.remove('bg-white/95', 'backdrop-blur-sm', 'shadow-sm');
+      // Home AND Top -> Transparent BG, White Text, White Logo
+      header?.classList.remove(
+        "bg-white/95",
+        "backdrop-blur-sm",
+        "shadow-sm",
+        "text-charcoal",
+      );
+      header?.classList.add("text-white");
+
+      if (logo) logo.src = "/logo-white.png";
+
+      // Update nav links color
+      const links = document.querySelectorAll(".nav-link");
+      links.forEach((link) => {
+        link.classList.add("text-white", "hover:text-white/80");
+        link.classList.remove("text-charcoal", "hover:text-olive");
+      });
+
+      [line1, line2, line3].forEach((line) => {
+        line?.classList.add("bg-white");
+        line?.classList.remove("bg-charcoal");
+      });
     }
   };
-  
-  window.addEventListener('scroll', updateHeader);
+
+  window.addEventListener("scroll", updateHeader);
+  // Initial check shouldn't override server-rendered state immediately causing flicker,
+  // but we need to run it to ensure client-side state matches scroll pos on reload
   updateHeader();
 </script>

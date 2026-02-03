@@ -1,0 +1,157 @@
+---
+import { Image } from "astro:assets";
+import slide1 from "../assets/hero/1.jpg";
+import slide2 from "../assets/hero/2.jpg";
+import slide3 from "../assets/hero/3.jpg";
+
+const slides = [
+  {
+    image: slide1,
+    alt: "Parze młoda w objęciach",
+  },
+  {
+    image: slide2,
+    alt: "Panna młoda z bukietem",
+  },
+  {
+    image: slide3,
+    alt: "Ceremonia ślubna",
+  },
+];
+---
+
+<section class="relative h-screen w-full overflow-hidden">
+  <!-- Slider Container -->
+  <div class="absolute inset-0 w-full h-full" id="hero-slider">
+    {
+      slides.map((slide, index) => (
+        <div
+          class={`absolute inset-0 w-full h-full transition-opacity duration-[1500ms] ease-in-out ${index === 0 ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+          data-slide={index}
+        >
+          <Image
+            src={slide.image}
+            alt={slide.alt}
+            class="w-full h-full object-cover animate-ken-burns"
+            loading={index === 0 ? "eager" : "lazy"}
+            width={1920}
+            quality={80}
+            format="webp"
+          />
+          <div class="hero-overlay" />
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Hero Content -->
+  <div
+    class="relative z-20 h-full flex items-center justify-center text-center text-white px-6"
+  >
+    <div>
+      <h1
+        class="font-serif font-light tracking-[0.2em] mb-6 opacity-0 animate-fade-in-up"
+      >
+        Tworzymy dla Was
+      </h1>
+      <p
+        class="font-sans text-sm md:text-base tracking-[0.15em] mb-10 opacity-0 animate-fade-in-up delay-200 max-w-md mx-auto"
+      >
+        Fotografię dopasowaną do Waszej historii.
+      </p>
+      <a
+        href="/portfolio"
+        class="opacity-0 animate-fade-in-up delay-300 btn-primary border-white text-white hover:bg-white hover:text-charcoal inline-block"
+      >
+        Poznaj nas
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div
+    class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/70 z-20"
+  >
+    <div class="w-px h-12 bg-white/30"></div>
+  </div>
+
+  <!-- Social links -->
+  <div
+    class="hidden md:flex absolute left-8 bottom-8 items-center gap-4 text-white/70 text-xs tracking-wider z-20"
+  >
+    <a
+      href="https://facebook.com/fiodorowphotography"
+      target="_blank"
+      class="hover:text-white transition-colors">FB</a
+    >
+    <span class="w-8 h-px bg-white/30"></span>
+    <a
+      href="https://instagram.com/fiodorowphotography"
+      target="_blank"
+      class="hover:text-white transition-colors">IN</a
+    >
+  </div>
+</section>
+
+<style>
+  @keyframes ken-burns {
+    0% {
+      transform: scale(1) translate(0, 0);
+    }
+    100% {
+      transform: scale(1.1) translate(-2%, 0);
+    }
+  }
+
+  .animate-ken-burns {
+    animation: ken-burns 20s ease-out infinite alternate;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
+  }
+
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  // Simple Slider Logic
+  const slides = document.querySelectorAll("[data-slide]");
+  let currentSlide = 0;
+  const slideCount = slides.length;
+  const intervalTime = 6000; // 6 seconds per slide
+
+  const nextSlide = () => {
+    // Current slide fades out
+    slides[currentSlide].classList.remove("opacity-100", "z-10");
+    slides[currentSlide].classList.add("opacity-0", "z-0");
+
+    // Next slide index
+    currentSlide = (currentSlide + 1) % slideCount;
+
+    // Next slide fades in
+    slides[currentSlide].classList.remove("opacity-0", "z-0");
+    slides[currentSlide].classList.add("opacity-100", "z-10");
+  };
+
+  // Start loop
+  if (slideCount > 1) {
+    setInterval(nextSlide, intervalTime);
+  }
+</script>
