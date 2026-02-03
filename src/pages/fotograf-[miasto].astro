@@ -3,62 +3,59 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-// City data for pSEO pages
-const cities = {
-  "siedlce": {
-    name: "Siedlce",
-    region: "Mazowieckie",
-    postalCode: "08-110",
-    description: "Siedlce to nasze rodzinne miasto i główna baza działalności. Znamy tu każdy zakątek idealny do sesji zdjęciowych.",
-    metaDescription: "Profesjonalny fotograf w Siedlcach (08-110). Fotografia ślubna, portrety, sesje narzeczeńskie. Zadzwoń: +48 600 872 127",
-    highlights: [
-      "Lokalna znajomość najlepszych plenerów",
-      "Szybka dostępność terminów",
-      "Współpraca z lokalnymi miejscami",
-      "Bez dodatkowych kosztów dojazdu"
-    ],
-    nearbyAreas: ["Łuków", "Mińsk Mazowiecki", "Sokołów Podlaski", "Węgrów", "Garwolin"]
-  },
-  "bialystok": {
-    name: "Białystok",
-    region: "Podlaskie", 
-    postalCode: "15-001",
-    description: "Białystok i Podlasie to region, w którym regularnie realizujemy sesje. Piękna przyroda i urokliwe miejsca tworzą idealne tło dla zdjęć.",
-    metaDescription: "Fotograf ślubny Białystok i Podlasie. Profesjonalna fotografia ceremonii, sesje plenerowe. Kontakt: +48 600 872 127",
-    highlights: [
-      "Regularne sesje w regionie podlaskim",
-      "Znajomość malowniczych lokalizacji",
-      "Współpraca z salami weselnymi",
-      "Elastyczne terminy"
-    ],
-    nearbyAreas: ["Supraśl", "Hajnówka", "Augustów", "Suwałki", "Łomża"]
-  },
-  "warszawa": {
-    name: "Warszawa",
-    region: "Mazowieckie",
-    postalCode: "00-001", 
-    description: "Stolica oferuje nieograniczone możliwości dla fotografii. Od eleganckich wnętrz po nowoczesną architekturę - Warszawa to idealne miejsce na każdy rodzaj sesji.",
-    metaDescription: "Fotograf Warszawa - profesjonalna fotografia ślubna i portretowa w stolicy. Rezerwacje: +48 600 872 127",
-    highlights: [
-      "Sesje w prestiżowych lokalizacjach",
-      "Fotografia eventowa i biznesowa",
-      "Dostępność w weekendy",
-      "Współpraca z wedding plannerami"
-    ],
-    nearbyAreas: ["Piaseczno", "Pruszków", "Legionowo", "Otwock", "Konstancin-Jeziorna"]
-  }
-};
-
 export function getStaticPaths() {
+  const cities = {
+    "siedlce": {
+      name: "Siedlce",
+      region: "Mazowieckie",
+      postalCode: "08-110",
+      description: "Siedlce to nasze rodzinne miasto i główna baza działalności. Znamy tu każdy zakątek idealny do sesji zdjęciowych.",
+      metaDescription: "Profesjonalny fotograf w Siedlcach (08-110). Fotografia ślubna, portrety, sesje narzeczeńskie. Zadzwoń: +48 600 872 127",
+      highlights: [
+        "Lokalna znajomość najlepszych plenerów",
+        "Szybka dostępność terminów",
+        "Współpraca z lokalnymi miejscami",
+        "Bez dodatkowych kosztów dojazdu"
+      ],
+      nearbyAreas: ["Łuków", "Mińsk Mazowiecki", "Sokołów Podlaski", "Węgrów", "Garwolin"]
+    },
+    "bialystok": {
+      name: "Białystok",
+      region: "Podlaskie", 
+      postalCode: "15-001",
+      description: "Białystok i Podlasie to region, w którym regularnie realizujemy sesje. Piękna przyroda i urokliwe miejsca tworzą idealne tło dla zdjęć.",
+      metaDescription: "Fotograf ślubny Białystok i Podlasie. Profesjonalna fotografia ceremonii, sesje plenerowe. Kontakt: +48 600 872 127",
+      highlights: [
+        "Regularne sesje w regionie podlaskim",
+        "Znajomość malowniczych lokalizacji",
+        "Współpraca z salami weselnymi",
+        "Elastyczne terminy"
+      ],
+      nearbyAreas: ["Supraśl", "Hajnówka", "Augustów", "Suwałki", "Łomża"]
+    },
+    "warszawa": {
+      name: "Warszawa",
+      region: "Mazowieckie",
+      postalCode: "00-001", 
+      description: "Stolica oferuje nieograniczone możliwości dla fotografii. Od eleganckich wnętrz po nowoczesną architekturę - Warszawa to idealne miejsce na każdy rodzaj sesji.",
+      metaDescription: "Fotograf Warszawa - profesjonalna fotografia ślubna i portretowa w stolicy. Rezerwacje: +48 600 872 127",
+      highlights: [
+        "Sesje w prestiżowych lokalizacjach",
+        "Fotografia eventowa i biznesowa",
+        "Dostępność w weekendy",
+        "Współpraca z wedding plannerami"
+      ],
+      nearbyAreas: ["Piaseczno", "Pruszków", "Legionowo", "Otwock", "Konstancin-Jeziorna"]
+    }
+  };
+  
   return Object.entries(cities).map(([slug, cityData]) => ({
     params: { miasto: slug },
-    props: { cityData }
+    props: { city: cityData, miasto: slug }
   }));
 }
 
-const { miasto } = Astro.params;
-const { cityData } = Astro.props;
-const city = cityData || cities[miasto as keyof typeof cities];
+const { city, miasto } = Astro.props;
 
 if (!city) {
   return Astro.redirect('/');
