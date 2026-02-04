@@ -1,6 +1,7 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
+import { media } from 'sanity-plugin-media'
 import { schemaTypes } from './schemas'
 
 // Sanity project configuration
@@ -17,6 +18,7 @@ export default defineConfig({
     plugins: [
         structureTool(),
         visionTool(),
+        media(), // Media browser for bulk image management
     ],
 
     schema: {
@@ -28,3 +30,4 @@ export default defineConfig({
         newDocumentOptions: (prev) => prev,
     },
 })
+

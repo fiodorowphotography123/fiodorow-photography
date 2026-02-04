@@ -109,6 +109,7 @@ const navLinks = [
 
 <script>
   // Mobile menu toggle
+  const header = document.getElementById("header");
   const menuBtn = document.getElementById("mobile-menu-btn");
   const mobileMenu = document.getElementById("mobile-menu");
   const line1 = document.getElementById("menu-line-1");
@@ -117,7 +118,6 @@ const navLinks = [
   let isOpen = false;
 
   const updateHeader = () => {
-    const header = document.getElementById("header");
     const logo = document.getElementById("header-logo") as HTMLImageElement;
     // We need to read the initial state from the DOM attribute
     const isHome = header?.getAttribute("data-is-home") === "true";

@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity'
+import { BulkImageUpload } from '../components/BulkImageUpload'
 
 export default defineType({
     name: 'portfolio',
@@ -80,6 +81,9 @@ export default defineType({
                     },
                 },
             ],
+            components: {
+                input: BulkImageUpload,
+            },
         }),
         defineField({
             name: 'featured',
