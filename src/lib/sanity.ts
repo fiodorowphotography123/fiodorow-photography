@@ -32,23 +32,6 @@ export interface PortfolioItem {
   order: number
 }
 
-export interface Report {
-  _id: string
-  title: string
-  slug: { current: string }
-  date: string
-  venue: string
-  location: string
-  excerpt: string
-  coverImage: any
-  images: Array<{
-    _key: string
-    asset: any
-    caption?: string
-  }>
-  featured: boolean
-}
-
 // Queries
 export async function getPortfolioItems(): Promise<PortfolioItem[]> {
   return sanityClient.fetch(`
@@ -97,38 +80,17 @@ export async function getFeaturedPortfolio(): Promise<PortfolioItem[]> {
   `)
 }
 
-export async function getReports(): Promise<Report[]> {
+export async function getLatestPortfolio(count: number = 3): Promise<PortfolioItem[]> {
   return sanityClient.fetch(`
-    *[_type == "report"] | order(date desc) {
+    *[_type == "portfolio"] | order(date desc) [0...${count}] {
       _id,
       title,
       slug,
       date,
-      venue,
-      location,
-      excerpt,
-      coverImage,
-      featured
+      category,
+      coverImage
     }
   `)
-}
-
-export async function getReport(slug: string): Promise<Report | null> {
-  return sanityClient.fetch(`
-    *[_type == "report" && slug.current == $slug][0] {
-      _id,
-      title,
-      slug,
-      date,
-      venue,
-      location,
-      excerpt,
-      story,
-      coverImage,
-      images,
-      featured
-    }
-  `, { slug })
 }
 
 // Category labels in Polish
