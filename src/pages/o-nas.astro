@@ -29,7 +29,7 @@ const studioImage =
           <h1
             class="font-serif text-4xl md:text-5xl tracking-[0.1em] uppercase mb-8 text-charcoal"
           >
-            Poznajmy się!
+            Poznajmy <i class="font-light italic text-olive">się</i>!
           </h1>
           <div
             class="space-y-6 text-charcoal-light text-base leading-relaxed font-light"
@@ -104,7 +104,7 @@ const studioImage =
   <!-- Values Section -->
   <section class="py-20 md:py-32 section-cream">
     <div class="max-w-6xl mx-auto px-6 md:px-12">
-      <h2 class="section-title text-center mb-16">Nasze podejście</h2>
+      <h2 class="section-title text-center mb-16">Nasze <i class="font-light italic text-olive">podejście</i></h2>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
         <!-- Value 1 -->
@@ -213,7 +213,7 @@ const studioImage =
 
         <!-- Content -->
         <div class="order-1 lg:order-2">
-          <h2 class="section-title mb-8">Gdzie działamy</h2>
+          <h2 class="section-title mb-8">Gdzie <i class="font-light italic text-olive">działamy</i></h2>
           <div
             class="space-y-6 text-charcoal-light text-sm md:text-base leading-relaxed"
           >
@@ -255,6 +255,115 @@ const studioImage =
     </div>
   </section>
 
+  <!-- FAQ Section -->
+  <section class="py-20 md:py-28 bg-cream">
+    <div class="max-w-3xl mx-auto px-6 md:px-12">
+      <div class="text-center mb-12">
+        <span class="text-olive text-xs font-bold tracking-[0.2em] uppercase mb-4 block">FAQ</span>
+        <h2 class="font-serif text-3xl md:text-4xl text-charcoal mb-4">
+          Najczęściej zadawane <i class="font-light italic text-olive font-serif">pytania</i>
+        </h2>
+      </div>
+      
+      <div class="space-y-4" id="faq-accordion">
+        <!-- Question 1 -->
+        <div class="faq-item border border-charcoal/10 rounded-sm overflow-hidden bg-white">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left bg-cream/30 hover:bg-cream transition-colors group">
+            <span class="font-serif text-lg text-charcoal group-hover:text-olive transition-colors">Jak wcześnie rezerwować termin?</span>
+            <svg class="faq-icon w-5 h-5 text-olive transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content grid grid-rows-[0fr] transition-all duration-500 ease-out">
+            <div class="overflow-hidden">
+              <div class="p-6 pt-0">
+                <p class="text-charcoal-light text-sm leading-relaxed">
+                  Najlepiej 6-12 miesięcy przed ślubem, szczególnie w sezonie (maj-wrzesień). Im wcześniej, tym większa pewność, że będziemy dostępni w Waszym terminie!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="faq-item border border-charcoal/10 rounded-sm overflow-hidden bg-white">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left bg-cream/30 hover:bg-cream transition-colors group">
+            <span class="font-serif text-lg text-charcoal group-hover:text-olive transition-colors">Czy dojeżdżacie poza Mazowsze?</span>
+            <svg class="faq-icon w-5 h-5 text-olive transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content grid grid-rows-[0fr] transition-all duration-500 ease-out">
+            <div class="overflow-hidden">
+              <div class="p-6 pt-0">
+                <p class="text-charcoal-light text-sm leading-relaxed">
+                  Tak! Działamy głównie na Mazowszu, Podlasiu i Lubelszczyźnie, ale chętnie dojedziemy też dalej. Skontaktujcie się z nami, a ustalimy szczegóły.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="faq-item border border-charcoal/10 rounded-sm overflow-hidden bg-white">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left bg-cream/30 hover:bg-cream transition-colors group">
+            <span class="font-serif text-lg text-charcoal group-hover:text-olive transition-colors">Ile zdjęć otrzymamy i kiedy?</span>
+            <svg class="faq-icon w-5 h-5 text-olive transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content grid grid-rows-[0fr] transition-all duration-500 ease-out">
+            <div class="overflow-hidden">
+              <div class="p-6 pt-0">
+                <p class="text-charcoal-light text-sm leading-relaxed">
+                  Przeciętnie otrzymacie 400-600 starannie wyselekcjonowanych i obrobionych zdjęć z reportażu. Galeria online będzie gotowa w ciągu 4-6 tygodni od ślubu.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="faq-item border border-charcoal/10 rounded-sm overflow-hidden bg-white">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left bg-cream/30 hover:bg-cream transition-colors group">
+            <span class="font-serif text-lg text-charcoal group-hover:text-olive transition-colors">Czy oferujecie sesję narzeczeńską?</span>
+            <svg class="faq-icon w-5 h-5 text-olive transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content grid grid-rows-[0fr] transition-all duration-500 ease-out">
+            <div class="overflow-hidden">
+              <div class="p-6 pt-0">
+                <p class="text-charcoal-light text-sm leading-relaxed">
+                  Tak! Sesja narzeczeńska to świetna okazja, żebyśmy się poznali przed wielkim dniem. Często wchodzi w skład pakietu, ale można ją też zamówić osobno.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="faq-item border border-charcoal/10 rounded-sm overflow-hidden bg-white">
+          <button class="faq-trigger w-full flex items-center justify-between p-6 text-left bg-cream/30 hover:bg-cream transition-colors group">
+            <span class="font-serif text-lg text-charcoal group-hover:text-olive transition-colors">Jak wygląda praca "w duecie"?</span>
+            <svg class="faq-icon w-5 h-5 text-olive transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content grid grid-rows-[0fr] transition-all duration-500 ease-out">
+            <div class="overflow-hidden">
+              <div class="p-6 pt-0">
+                <p class="text-charcoal-light text-sm leading-relaxed">
+                  Pracujemy razem jako zespół — dwa spojrzenia, dwie perspektywy. Dzięki temu nie umknie żaden ważny moment, a Wy otrzymacie bogatszą historię Waszego dnia.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Equipment Section -->
   <section class="py-16 md:py-20 section-olive">
     <div class="max-w-4xl mx-auto px-6 md:px-12 text-center text-white">
@@ -272,4 +381,52 @@ const studioImage =
   </section>
 
   <Footer />
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // FAQ Accordion functionality
+      const faqTriggers = document.querySelectorAll('.faq-trigger');
+      
+      faqTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          const faqItem = trigger.parentElement;
+          if (!faqItem) return;
+          
+          const content = faqItem.querySelector('.faq-content');
+          const icon = trigger.querySelector('.faq-icon');
+          if (!content || !icon) return;
+          
+          // Check if current item is open (using grid-rows-[1fr])
+          const isOpen = content.classList.contains('grid-rows-[1fr]');
+
+          // Close all other FAQ items
+          document.querySelectorAll('.faq-item').forEach(item => {
+            if (item !== faqItem) {
+              const itemContent = item.querySelector('.faq-content');
+              const itemIcon = item.querySelector('.faq-icon');
+              
+              if (itemContent) {
+                itemContent.classList.remove('grid-rows-[1fr]');
+                itemContent.classList.add('grid-rows-[0fr]');
+              }
+              if (itemIcon) {
+                itemIcon.classList.remove('rotate-180');
+              }
+            }
+          });
+
+          // Toggle current item
+          if (isOpen) {
+            content.classList.remove('grid-rows-[1fr]');
+            content.classList.add('grid-rows-[0fr]');
+            icon.classList.remove('rotate-180');
+          } else {
+            content.classList.remove('grid-rows-[0fr]');
+            content.classList.add('grid-rows-[1fr]');
+            icon.classList.add('rotate-180');
+          }
+        });
+      });
+    });
+  </script>
 </BaseLayout>
