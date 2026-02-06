@@ -96,9 +96,6 @@ export async function getLatestPortfolio(count: number = 3): Promise<PortfolioIt
 // Category labels in Polish
 export const categoryLabels: Record<string, string> = {
   'reportaz-slubny': 'Reportaż ślubny',
+  'sesja-poslubna': 'Sesja poślubna',
   'sesja-narzeczenska': 'Sesja narzeczeńska',
-  'sesja-portretowa': 'Sesja portretowa',
-  'sesja-rodzinna': 'Sesja rodzinna',
-  'sesja-biznesowa': 'Sesja biznesowa',
-  'fotografia-eventowa': 'Fotografia eventowa',
 }

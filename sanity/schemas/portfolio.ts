@@ -38,11 +38,8 @@ export default defineType({
             options: {
                 list: [
                     { title: 'Reportaż ślubny', value: 'reportaz-slubny' },
+                    { title: 'Sesja poślubna', value: 'sesja-poslubna' },
                     { title: 'Sesja narzeczeńska', value: 'sesja-narzeczenska' },
-                    { title: 'Sesja portretowa', value: 'sesja-portretowa' },
-                    { title: 'Sesja rodzinna', value: 'sesja-rodzinna' },
-                    { title: 'Sesja biznesowa', value: 'sesja-biznesowa' },
-                    { title: 'Fotografia eventowa', value: 'fotografia-eventowa' },
                 ],
             },
             validation: (Rule) => Rule.required(),
