@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import SpeedInsights from '@vercel/speed-insights/astro';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   title: string;
@@ -49,6 +50,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
     <title>{title}</title>
+    
+    <!-- Vercel Web Analytics -->
+    <Analytics />
     
     <!-- Schema.org for Photographer -->
     <script type="application/ld+json" set:html={JSON.stringify({
