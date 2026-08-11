@@ -17,7 +17,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { firstName, lastName, email, phone, eventDate, eventType, message, website, formTimestamp } = req.body;
+    const { firstName, lastName, email, phone, eventDate, eventType, eventLocation, message, website, formTimestamp } = req.body;
 
     // --- Anti-spam checks ---
 
@@ -62,8 +62,8 @@ export default async function handler(req, res) {
     const service = eventType;
 
     // Validate required fields
-    if (!firstName || !email || !message) {
-      return res.status(400).json({ error: 'Wymagane pola: imię, email i wiadomość' });
+    if (!firstName || !email || !eventLocation || !message) {
+      return res.status(400).json({ error: 'Wymagane pola: imię, email, lokalizacja i wiadomość' });
     }
 
     // Check for API key
@@ -152,6 +152,12 @@ export default async function handler(req, res) {
                       <td style="padding:14px 0;border-bottom:1px solid #f5f0eb;">
                         <p style="margin:0 0 3px;color:#aaa;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',Arial,sans-serif;">Planowana data</p>
                         <p style="margin:0;color:#2d2d2d;font-size:15px;font-family:'Cormorant Garamond',Georgia,serif;">${date}</p>
+                      </td>
+                    </tr>` : ''}
+                    ${eventLocation ? `<tr>
+                      <td style="padding:14px 0;border-bottom:1px solid #f5f0eb;">
+                        <p style="margin:0 0 3px;color:#aaa;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-family:'Montserrat',Arial,sans-serif;">Lokalizacja</p>
+                        <p style="margin:0;color:#2d2d2d;font-size:15px;font-family:'Cormorant Garamond',Georgia,serif;">${eventLocation}</p>
                       </td>
                     </tr>` : ''}
                   </table>
