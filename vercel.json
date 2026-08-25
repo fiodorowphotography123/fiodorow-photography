@@ -8,6 +8,8 @@
     { "source": "/portfolio-item/natalia-michal/:path*", "destination": "/portfolio/natalia-michal", "permanent": true },
     { "source": "/portfolio-item/wiktoria-adam/:path*", "destination": "/portfolio/wiktoria-adam", "permanent": true },
     { "source": "/portfolio-item/:path*", "destination": "/portfolio", "permanent": true },
+    { "source": "/fotograf-siedlce", "destination": "/", "permanent": true },
+    { "source": "/fotograf-siedlce/:path*", "destination": "/", "permanent": true },
     { "source": "/strona-glowna/:path*", "destination": "/", "permanent": true },
     { "source": "/category/:path*", "destination": "/portfolio", "permanent": true },
     { "source": "/tag/:path*", "destination": "/portfolio", "permanent": true },

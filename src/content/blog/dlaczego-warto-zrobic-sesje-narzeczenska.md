@@ -67,7 +67,7 @@ Umawiamy się zwykle o dobrej porze dnia — najczęściej tuż przed zachodem s
 
 Najczęściej pytacie, gdzie taka sesja może się odbyć. Nasza odpowiedź jest zawsze podobna: **tam, gdzie czujecie się dobrze**. Nie musi to być efektowna lokacja rodem z Pinteresta — dużo lepiej sprawdza się miejsce, które coś dla Was znaczy: park, w którym była pierwsza randka, ulubiona kawiarnia, łąka za miastem, brzeg rzeki.
 
-Fotografujemy głównie w [Siedlcach i na Mazowszu](/fotograf-siedlce), ale równie chętnie jeździmy na [Podlasie, w okolice Białegostoku](/fotograf-bialystok). A że jesteśmy duetem, dojazd w Wasze ulubione miejsce nie jest dla nas problemem. Region mamy piękny i różnorodny: od klimatycznych zakątków miasta, przez pola i lasy, po nadrzeczne plenery, które o złotej godzinie wyglądają wyjątkowo. Jeśli macie w głowie konkretne miejsce — powiedzcie nam. Jeśli nie, chętnie coś podpowiemy, dopasowując lokację do pory roku i tego, co lubicie.
+Fotografujemy głównie w [Siedlcach i na Mazowszu](/), ale równie chętnie jeździmy na [Podlasie, w okolice Białegostoku](/fotograf-bialystok). A że jesteśmy duetem, dojazd w Wasze ulubione miejsce nie jest dla nas problemem. Region mamy piękny i różnorodny: od klimatycznych zakątków miasta, przez pola i lasy, po nadrzeczne plenery, które o złotej godzinie wyglądają wyjątkowo. Jeśli macie w głowie konkretne miejsce — powiedzcie nam. Jeśli nie, chętnie coś podpowiemy, dopasowując lokację do pory roku i tego, co lubicie.
 
 ![Sesja narzeczeńska na Podlasiu, w okolicach Białegostoku — złota godzina w plenerze](../../assets/blog/sesja-narzeczenska/sesja-narzeczenska-podlasie-bialystok-zloty-plener.jpg)
 

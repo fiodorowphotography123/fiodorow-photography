@@ -4,9 +4,6 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { Image } from "astro:assets";
 import { getLandingGallery, urlFor } from "../lib/sanity";
-import siedlceHeroimg from "../assets/pseo/siedlce/fotograf-slubny-siedlce-sesja-plenerowa.jpg";
-import siedlceGridImg1 from "../assets/pseo/siedlce/sesja-slubna-siedlce-para-mloda.jpg";
-import siedlceGridImg2 from "../assets/pseo/siedlce/fotografia-portretowa-siedlce-plener.jpg";
 import warszawaHeroimg from "../assets/pseo/warszawa/fotograf-slubny-warszawa-sesja-plenerowa.jpg";
 import warszawaGridImg1 from "../assets/pseo/warszawa/sesja-slubna-warszawa-para-mloda.jpg";
 import warszawaGridImg2 from "../assets/pseo/warszawa/fotografia-portretowa-warszawa-plener.jpg";
@@ -16,84 +13,6 @@ import bialystokGridImg2 from "../assets/pseo/bialystok/fotografia-portretowa-bi
 
 export function getStaticPaths() {
   const cities = {
-    siedlce: {
-      name: "Siedlce",
-      nameLocative: "Siedlcach",
-      nameGenitive: "Siedlec",
-      nameAdjective: "siedlecki",
-      region: "Mazowieckie",
-      postalCode: "08-110",
-      // Strona główna celuje w te same frazy ("fotograf ślubny Siedlce") i wygrywa
-      // — jest na pozycji 2,4, ten landing na 44,6. Canonical oddaje jej sygnały,
-      // zamiast konkurować z własnym serwisem. Landing dalej działa pod Google Ads.
-      canonicalPath: "/",
-      // Link kontekstowy do fotobudki w tym samym mieście (tylko gdzie istnieje).
-      fotobudkaSlug: "fotobudka-siedlce",
-      metaDescription:
-        "Fotograf ślubny w Siedlcach ✦ Naturalna fotografia ślubna, sesje narzeczeńskie i poślubne. Duet fotografów z Siedlec. Zadzwoń: +48 660 872 121",
-      aboutParagraphs: [
-        "To nasze rodzinne miasto – tu zaczynała się nasza fotograficzna przygoda i tu mamy swoją bazę. Znamy każdy zakątek okolicy, który sprawdzi się jako tło do sesji ślubnej, narzeczeńskiej czy portretowej. Od malowniczego Parku Aleksandria, aż po okoliczne pola i lasy.",
-        "Znamy wiele lokalnych sal weselnych, dzięki temu mamy pogląd na warunki oświetleniowe i najlepsze punkty do zdjęć. Nie tracimy czasu na rozpoznanie terenu – od pierwszej minuty skupiamy się na Was i Waszych emocjach. ",
-        "Realizujemy sesje na terenie całego Mazowsza wschodniego – dojeżdżamy do Łukowa, Mińska Mazowieckiego, Sokołowa Podlaskiego, Węgrowa i Garwolina bez dodatkowych kosztów dojazdu.",
-      ],
-      serviceDescriptions: {
-        wedding:
-          "Kompletny reportaż z Waszego ślubu – od przygotowań w domu, przez ceremonię w kościele czy USC, aż po szaloną zabawę weselną. Znamy lokalne sale weselne i kościoły, więc wiemy, jak uchwycić najlepsze kadry w każdym z nich.",
-        engagement:
-          "Sesja narzeczeńska w najpiękniejszych plenerach okolicy. Park Aleksandria, nadrzeczne ścieżki czy malownicze łąki – dobierzemy miejsce idealne dla Was. To też świetna okazja, żebyśmy się poznali przed wielkim dniem.",
-        postwedding:
-          "Wasza miłość zasługuje na wyjątkową oprawę. Sesja poślubna to nie tylko piękne kadry, ale przede wszystkim wspólny czas, emocje i atmosfera, w której możecie być sobą. Razem wybierzemy miejsce, które najlepiej odda Wasz charakter.",
-      },
-      faq: [
-        {
-          question:
-            "Czy dojeżdżacie na śluby w okolice Siedlec bez dodatkowych opłat?",
-          answer:
-            "Tak! Dojazd w promieniu ok. 100 km (m.in. Łuków, Mińsk Mazowiecki, Sokołów Podlaski, Węgrów, Garwolin, Warszawa) jest wliczony w cenę pakietu. Siedlce to nasza baza, więc znamy okolicę doskonale. Przy dalszych lokalizacjach doliczamy jedynie koszty paliwa.",
-        },
-        {
-          question: "Jak długo czeka się na zdjęcia ślubne po weselu?",
-          answer:
-            "Pełna, profesjonalnie przygotowana galeria jest gotowa w ciągu 3 miesięcy od dnia ślubu. Każde zdjęcie jest starannie obrabiane w naszym autorskim stylu — naturalnym, ciepłym i pełnym emocji. Galeria udostępniana jest online z możliwością pobrania w pełnej rozdzielczości.",
-        },
-        {
-          question: "Gdzie najlepiej zrobić sesję narzeczeńską w Siedlcach?",
-          answer:
-            "Nasze ulubione lokalizacje to Park Aleksandria, młyn w Stoku Wiśniewskim, okoliczne lasy i łąki. Świetnie sprawdzają się też siedleckie wydmy i Zalew Siedlecki. Możemy wybrać się z Wami również na sesję w stylu miejskim po uliczkach centrum. Chętnie pomożemy dobrać miejsce idealnie pasujące do Waszego stylu i pory roku.",
-        },
-        {
-          question: "Czy fotografujecie również śluby cywilne?",
-          answer:
-            "Oczywiście! Fotografujemy zarówno śluby kościelne, jak i cywilne w USC oraz humanistyczne w plenerze. Każda forma ceremonii jest dla nas tak samo ważna i piękna. Mamy doświadczenie z różnymi urzędami i salami w okolicach Siedlec, więc wiemy, jak najlepiej uchwycić każdy moment niezależnie od miejsca.",
-        },
-      ],
-      localPlaces: [
-        "Park Aleksandria",
-        "Uliczki miasta",
-        "Okoliczne lasy",
-        "Młyn w Stoku Wiśniewskim",
-        "Pałac w Patrykozach",
-        "Siedleckie wydmy",
-        "Zalew siedlecki",
-      ],
-      highlights: [
-        "Nasz dom — znamy każdy plener w okolicy",
-        "Brak kosztów dojazdu w promieniu 50 km",
-        "Współpraca z lokalnymi salami weselnymi",
-        "Szybka dostępność terminów",
-      ],
-      nearbyAreas: [
-        "Białystok",
-        "Warszawa",
-        "Łuków",
-        "Mińsk Mazowiecki",
-        "Sokołów Podlaski",
-        "Węgrów",
-        "Garwolin",
-      ],
-      heroImage: siedlceHeroimg,
-      gridImages: [siedlceGridImg1, siedlceGridImg2],
-    },
     bialystok: {
       name: "Białystok",
       nameLocative: "Białymstoku",
@@ -271,17 +190,18 @@ function buildJustifiedRows(items: { ar: number; [k: string]: any }[]) {
 }
 const galleryRows = buildJustifiedRows(galleryImages);
 
-// Map city names to PSEO slugs for internal linking
-const citySlugMap: Record<string, string> = {
-  Siedlce: "siedlce",
-  Białystok: "bialystok",
-  Warszawa: "warszawa",
+// Ścieżki do landingów miastowych. Siedlce nie mają własnej podstrony —
+// tę rolę pełni strona główna, która i tak wygrywa na frazach siedleckich.
+const cityPathMap: Record<string, string> = {
+  Siedlce: "/",
+  Białystok: "/fotograf-bialystok",
+  Warszawa: "/fotograf-warszawa",
 };
 
 // Schema.org for Local Business
 const schemaData = {
   "@context": "https://schema.org",
-  "@type": "Photographer",
+  "@type": "LocalBusiness",
   name: `Fiodorow Photography - Fotograf ${city.name}`,
   image: "https://fiodorowphotography.pl/og-image.jpg",
   description: city.metaDescription,
@@ -296,12 +216,10 @@ const schemaData = {
   geo: {
     "@type": "GeoCoordinates",
     latitude: {
-      siedlce: 52.1676,
       bialystok: 53.1325,
       warszawa: 52.2297,
     }[miasto],
     longitude: {
-      siedlce: 22.2903,
       bialystok: 23.1688,
       warszawa: 21.0122,
     }[miasto],
@@ -376,7 +294,7 @@ const reviews = [
 // Schema ocen — spięta z tym samym @id co Photographer (prawdziwe opinie 5★).
 const reviewSchema = {
   "@context": "https://schema.org",
-  "@type": "Photographer",
+  "@type": "LocalBusiness",
   "@id": "https://fiodorowphotography.pl/#photographer",
   name: "Fiodorow Photography | Fotografia Ślubna",
   aggregateRating: {
@@ -891,10 +809,10 @@ const reviewSchema = {
       >
         {
           city.nearbyAreas.map((area) => {
-            const slug = citySlugMap[area];
-            return slug ? (
+            const path = cityPathMap[area];
+            return path ? (
               <a
-                href={`/fotograf-${slug}`}
+                href={path}
                 class="px-4 py-2 bg-cream-dark text-sm text-charcoal-light rounded-sm hover:bg-olive hover:text-white transition-colors"
               >
                 {area}

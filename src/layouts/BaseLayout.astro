@@ -91,12 +91,12 @@ const breadcrumbSchema = breadcrumbs
 
     <slot name="head" />
 
-    <!-- Schema.org for Photographer (subtype of LocalBusiness) -->
+    <!-- Schema.org — LocalBusiness (typ „Photographer" nie istnieje w schema.org) -->
     <script
       type="application/ld+json"
       set:html={JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "Photographer",
+        "@type": "LocalBusiness",
         "@id": "https://fiodorowphotography.pl/#photographer",
         name: "Fiodorow Photography | Fotografia Ślubna",
         image: new URL(image, Astro.site).href,
