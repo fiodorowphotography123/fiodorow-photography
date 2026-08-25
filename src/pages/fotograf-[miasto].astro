@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { googleReviews } from "../data/google-reviews";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { Image } from "astro:assets";
@@ -299,8 +300,9 @@ const reviewSchema = {
   name: "Fiodorow Photography | Fotografia Ślubna",
   aggregateRating: {
     "@type": "AggregateRating",
-    ratingValue: "5.0",
-    reviewCount: reviews.length,
+    ratingValue: String(googleReviews.rating.toFixed(1)),
+    // Prawdziwa liczba opinii z wizytówki, nie liczba cytatów na stronie.
+    reviewCount: googleReviews.count,
     bestRating: "5",
     worstRating: "1",
   },

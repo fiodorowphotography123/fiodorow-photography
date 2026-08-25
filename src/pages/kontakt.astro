@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { googleReviews } from "../data/google-reviews";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
@@ -260,6 +261,23 @@ const localBusinessSchema = {
             <p class="text-charcoal-light text-xs leading-relaxed mb-8 font-light">
               Opowiedzcie nam o swoich planach — każde zapytanie jest niezobowiązujące i traktujemy je indywidualnie.
             </p>
+
+            <!-- Dowód społeczny tuż nad formularzem — tu pary się wahają -->
+            <a
+              href={googleReviews.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex flex-wrap items-center gap-x-2.5 gap-y-1 mb-8 -mt-4 group"
+              aria-label={`Ocena ${googleReviews.rating} na 5 z ${googleReviews.count} opinii w Google — otwórz wizytówkę`}
+            >
+              <span class="text-olive text-sm tracking-[0.15em]" aria-hidden="true">★★★★★</span>
+              <span class="font-serif text-base text-charcoal">
+                {googleReviews.rating.toFixed(1).replace(".", ",")}
+              </span>
+              <span class="text-charcoal-light text-[0.7rem] font-light">
+                z {googleReviews.count} opinii w Google
+              </span>
+            </a>
 
             <form id="contact-form" class="space-y-6">
               <!-- Honeypot - hidden from humans, bots fill it -->

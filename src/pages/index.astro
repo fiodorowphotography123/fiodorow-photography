@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { googleReviews } from '../data/google-reviews';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
@@ -444,6 +445,26 @@ const personSchemas = [
           <footer>— Amelia i Damian</footer>
         </blockquote>
       </div>
+
+      <!-- Ocena z Google renderowana serwerowo: widoczna od razu, bez czekania na widget -->
+      <a
+        href={googleReviews.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 mb-10 group reveal reveal-up"
+        aria-label={`Ocena ${googleReviews.rating} na 5 z ${googleReviews.count} opinii w Google — otwórz wizytówkę`}
+      >
+        <span class="text-olive text-lg tracking-[0.15em]" aria-hidden="true">★★★★★</span>
+        <span class="font-serif text-xl text-charcoal">
+          {googleReviews.rating.toFixed(1).replace(".", ",")}
+        </span>
+        <span class="text-charcoal-light text-xs font-light">
+          z {googleReviews.count} opinii w Google
+        </span>
+        <span class="text-charcoal-light/60 text-xs font-light group-hover:text-olive transition-colors">
+          — zobacz wszystkie
+        </span>
+      </a>
 
       <!-- Elfsight Google Reviews Widget (lazy-loaded) -->
       <div class="elfsight-reviews-container reveal reveal-up reveal-d2" id="elfsight-container">
